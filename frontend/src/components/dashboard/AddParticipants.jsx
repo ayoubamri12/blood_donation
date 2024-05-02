@@ -12,6 +12,7 @@ import DialogContent from '@mui/joy/DialogContent';
 import Stack from '@mui/joy/Stack';
 import { Button } from '@mui/joy';
 import { HashLoader } from 'react-spinners';
+import { Bounce, ToastContainer, toast } from 'react-toastify'
 
 export default function AddParticipants() {
     const [open, setOpen] = useState(false);
@@ -40,6 +41,17 @@ export default function AddParticipants() {
         // Set a timeout to toggle off the loading indicator after 3 seconds (adjust as needed)
         setTimeout(() => {
             setIsLoading(false);
+            toast.success('🦄 Wow so easy!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+                });
         }, 3000);
     };
 
@@ -247,6 +259,8 @@ export default function AddParticipants() {
                 </Btn>
                 {isLoading && <div className='loading'> <HashLoader color="#FF0000" /></div> }
             </div>
+        <ToastContainer />
+
         </div>
     );
 }
