@@ -6,6 +6,8 @@ import Details from "@/components/dashboard/Details";
 import Main from "@/components/dashboard/Main";
 import Layout from "@/components/layout/Layout";
 import Login from "@/components/login/Login";
+import CreateStaff from "@/components/Forms/CreateStaff";
+import CreateTeam from "@/components/Forms/CreateTeam";
 import { createBrowserRouter } from "react-router-dom";
 import AddParticipants from "@/components/dashboard/AddParticipants";
 
@@ -44,6 +46,14 @@ const routes= createBrowserRouter([
           {
             path:"/detailCompagne",
             element:<StartCampaign/>
+          },
+          {
+            path:"/addStaff",
+            element:<CreateStaff/>
+          },
+          {
+            path:"/addTeam",
+            element:<CreateTeam/>
           },
       ],
   },{

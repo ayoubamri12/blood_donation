@@ -33,6 +33,8 @@ if(resp.status===200){
   </button>
   <ul className="dropdown-menu dropdown-menu-danger">
     <li><Link to={"/settings"} className="dropdown-item" ><i className="fa-solid fa-gear me-1  text-cyan-800"></i>settings</Link></li>
+    <li><Link to={"/addStaff"} className="dropdown-item" ><i className="fa-solid fa-gear me-1  text-cyan-800"></i>create staff</Link></li>
+    <li><Link to={"/addTeam"} className="dropdown-item" ><i className="fa-solid fa-gear me-1  text-cyan-800"></i>create team</Link></li>
     <li><hr className="dropdown-divider"/></li>
     <li><button className="dropdown-item" onClick={logout}><i className="fa-solid fa-right-from-bracket me-1 text-cyan-800" ></i>logout</button></li>
   </ul>
