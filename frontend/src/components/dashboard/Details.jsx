@@ -194,6 +194,7 @@ const Details = () => {
 
   return (
     <div className="w-2/3 mx-auto overflow-hidden">
+        
       <div id="chart" className="row mb-7 w-75 mx-auto">
         <ReactApexChart
           options={options}

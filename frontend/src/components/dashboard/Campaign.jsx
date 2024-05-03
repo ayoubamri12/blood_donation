@@ -6,15 +6,17 @@ import "react-toastify/dist/ReactToastify.css";
 export default function Campaign() {
     const [inputVals,setInputVals]=useState({
         title:"",
-        date:""
+        date:"",
+        lieu:""
     })
     const [errs,setErrs]=useState({
       title:false,
-      date:false
+      date:false,
+      lieu:false,
   })
     const [isSub,setIsSub]=useState(false)
    async function handelClick(){
-     /*   setIsSub(true)
+        setIsSub(true)
         let errs={};
         let counter=0;
         for(let key in inputVals){
@@ -32,9 +34,10 @@ export default function Campaign() {
           setErrs({
             title:false,
             date:false,
+            lieu:false,
           })
         await axiosObj.get("/sanctum/csrf-cookie")
-        await  axiosObj.post("/campaign",inputVals).then((data)=>console.log(data.status))*/
+        await  axiosObj.post("/campaign",inputVals).then((data)=>console.log(data.status))
         toast.success('🦄 Wow so easy!', {
           position: "top-right",
           autoClose: 5000,
@@ -45,9 +48,9 @@ export default function Campaign() {
           progress: undefined,
           theme: "light",
           transition: Bounce,
-          });/*
+          });
         }
-        setErrs(errs)*/
+        setErrs(errs)
     }
     function handleChange(e){
             setInputVals({...inputVals,[e.target.name]:e.target.value})
@@ -66,8 +69,8 @@ export default function Campaign() {
   </div>
   <div className="mb-3 w-75 mx-auto">
     <label className="form-label  font-bold">Compaign lieu :</label>
-    <input type="text" name='title' className="form-control  inputsBorder" onChange={handleChange} />
-    {errs.title && <div  className="form-text text-danger">se champ est obligatoire</div>}
+    <input type="text" name='lieu' className="form-control  inputsBorder" onChange={handleChange} />
+    {errs.lieu && <div  className="form-text text-danger">se champ est obligatoire</div>}
   </div>
   <div className="mb-3 w-75 mx-auto">
     <label  className="form-label font-bold">Date :</label>
@@ -76,7 +79,7 @@ export default function Campaign() {
 
   </div>
   <div className='d-flex justify-content-center '>
-  <button type="button" disabled={isSub?true:false} onClick={handelClick} className="btn btn-danger font-bold text-center w-25">{isSub?<p className='loader d-d-inline-block  mx-auto'></p>:"Creer"}</button>
+  <button type="button" disabled={isSub} onClick={handelClick} className="btn btn-danger font-bold text-center w-25">{isSub?<p className='loader d-d-inline-block  mx-auto'></p>:"Creer"}</button>
 
   </div>
 </form>

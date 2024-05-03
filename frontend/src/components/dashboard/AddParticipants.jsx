@@ -13,6 +13,7 @@ import Stack from '@mui/joy/Stack';
 import { Button } from '@mui/joy';
 import { HashLoader } from 'react-spinners';
 import { Bounce, ToastContainer, toast } from 'react-toastify'
+import axiosObj from '@/axios/axiosConfig';
 
 export default function AddParticipants() {
     const [open, setOpen] = useState(false);
@@ -25,6 +26,7 @@ export default function AddParticipants() {
         age: '',
         addresse: '',
         bloodType: '',
+        id_camp:1
     });
 
     const handleChange = (e) => {
@@ -36,10 +38,30 @@ export default function AddParticipants() {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleClick = () => {
+        // Check if any of the required fields are empty
+        const requiredFields = ['nom', 'prenom', 'CIN', 'tel', 'age', 'addresse'];
+        const isEmpty = requiredFields.some((field) => !formData[field]);
+    
+        if (isEmpty) {
+            toast.error('Please fill in all required fields.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+            return;
+        }
+    
         setIsLoading(true);
-
+    console.log(formData);
         // Set a timeout to toggle off the loading indicator after 3 seconds (adjust as needed)
         setTimeout(() => {
+            axiosObj.post('/api/participants/add',formData,)
             setIsLoading(false);
             toast.success('🦄 Wow so easy!', {
                 position: "top-right",
@@ -51,7 +73,7 @@ export default function AddParticipants() {
                 progress: undefined,
                 theme: "light",
                 transition: Bounce,
-                });
+            });
         }, 3000);
     };
 
@@ -88,7 +110,7 @@ export default function AddParticipants() {
                         </form>
                     </ModalDialog>
                 </Modal>
-                <Btn variant="contained" color="primary">
+                <Btn variant="contained" className='bg-yellow-400'>
                     Terminer Campagne
                 </Btn>
             </div>
@@ -98,7 +120,6 @@ export default function AddParticipants() {
                 <div className="mb-3 w-75 mx-auto input-container" style={{ marginTop: '20px', marginBottom: '20px' }}>
                     <div className="input-container">
                         <TextField
-                        
                             label="Nom"
                             name="nom"
                             value={formData.nom}
@@ -107,7 +128,9 @@ export default function AddParticipants() {
                             fullWidth
                             className="mb-3"
                             sx={{ width: '48%', marginRight: '4%', marginBottom: '20px' }}
+                            helperText={"se champ est obligatoire"}
                         />
+
                         <TextField
                             label="Prénom"
                             name="prenom"
@@ -117,6 +140,7 @@ export default function AddParticipants() {
                             fullWidth
                             className="mb-3"
                             sx={{ width: '48%', marginBottom: '20px' }}
+                            helperText={"se champ est obligatoire"}
                         />
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
                             <TextField
@@ -127,6 +151,7 @@ export default function AddParticipants() {
                                 variant="outlined"
                                 className="mb-3"
                                 sx={{ width: '40%' }}
+                                helperText={"se champ est obligatoire "}
                             />
                         </div>
                         <TextField
@@ -138,6 +163,7 @@ export default function AddParticipants() {
                             fullWidth
                             className="mb-3"
                             sx={{ width: '48%', marginRight: '4%' }}
+                            helperText={"se champ est obligatoire"}
                         />
                         <TextField
                             label="Age"
@@ -148,6 +174,7 @@ export default function AddParticipants() {
                             fullWidth
                             className="mb-3"
                             sx={{ width: '48%' }}
+                            helperText={"se champ est obligatoire"}
                         />
                         <FormControl component="fieldset" className="mb-3" sx={{ width: '100%' }}>
                             <FormLabel component="legend">Genre</FormLabel>
@@ -240,7 +267,7 @@ export default function AddParticipants() {
                                 </RadioGroup>
                             </FormGroup>
                         </FormControl>
-                        <TextField
+                        <TextField 
                             label="Adresse"
                             name="addresse"
                             value={formData.addresse}
@@ -248,13 +275,13 @@ export default function AddParticipants() {
                             variant="outlined"
                             fullWidth
                             className="mb-3"
-
+                            helperText={"se champ est obligatoire"}
                         />
 
                     </div>
                 </div>
 
-                <Btn variant="contained" color='primary' onClick={handleClick} fullWidth>
+                <Btn variant="contained" className='bg-red-700' onClick={handleClick} fullWidth>
                     Ajouter
                 </Btn>
                 {isLoading && <div className='loading'> <HashLoader color="#FF0000" /></div> }
