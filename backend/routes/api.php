@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\participationController;
+use App\Http\Controllers\StaffController;
+use App\Http\Controllers\TeamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +32,9 @@ Route::get("/campaigns",[CampaignController::class,"index"]);
 # ----------------------------------------------------------
 Route::get("/participants",[participationController::class,"index"]);
 Route::post("/participants/add",[participationController::class,"store"]);
+# ----------------------------------------------------------
+Route::get("/staffMembers",[StaffController::class,"index"]);
+Route::post("/staffMembers/add",[StaffController::class,"store"]);
+# ----------------------------------------------------------
+Route::get("/teamMembers",[TeamController::class,"index"]);
+Route::post("/teamMembers/add",[TeamController::class,"store"]);

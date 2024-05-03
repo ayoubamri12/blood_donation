@@ -1,4 +1,5 @@
 import Campaign from "@/components/dashboard/Campaign";
+import DetailCompagne from "@/components/dashboard/DetailCompagne";
 import CampaignList from "@/components/dashboard/CampaignList";
 import StartCampaign from "@/components/dashboard/StartCampaign";
 import Details from "@/components/dashboard/Details";
@@ -23,6 +24,10 @@ const routes= createBrowserRouter([
           {
             path:"/createCamp",
             element:<Campaign/>
+          },
+          {
+            path:"/detailCompagne",
+            element:<DetailCompagne/>
           },
           {
             path:"/listeCamp",

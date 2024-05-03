@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('compagnes', function (Blueprint $table) {
-            $table->id();
-            $table->string("dateCompagne");
-            $table->string("horaireDebut");
-            $table->string("horaireFin");
-            $table->unsignedBigInteger("place_id");            
-            $table->timestamps();
+        Schema::table('staffmembers', function (Blueprint $table) {
+            $table->foreign('id_camp')->references('id')->on('compagnes')->onDelete('cascade');
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('compagnes');
+        Schema::table('staffmembers', function (Blueprint $table) {
+            $table->dropForeign(['id_camp']);
+        });
     }
 };

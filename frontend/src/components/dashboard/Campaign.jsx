@@ -1,91 +1,114 @@
-import React, { useState } from 'react'
-import "../style/loaders.css"
-import axiosObj from '@/axios/axiosConfig'
-import { Bounce, ToastContainer, toast } from 'react-toastify'
-import "react-toastify/dist/ReactToastify.css";
-export default function Campaign() {
-    const [inputVals,setInputVals]=useState({
-        title:"",
-        date:"",
-        lieu:""
-    })
-    const [errs,setErrs]=useState({
-      title:false,
-      date:false,
-      lieu:false,
-  })
-    const [isSub,setIsSub]=useState(false)
-   async function handelClick(){
-        setIsSub(true)
-        let errs={};
-        let counter=0;
-        for(let key in inputVals){
-          if(!inputVals[key]){
-            console.log(key);
-            errs={...errs,[key]:true}
-            counter+=1;
-          setIsSub(false)
+import { useState } from 'react';
+import { TextField, Button, Snackbar } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
+import { Link } from 'react-router-dom';
 
-          }else{
-            errs={...errs,[key]:false}
-          }
-        }
-        if(!counter){
-          setErrs({
-            title:false,
-            date:false,
-            lieu:false,
-          })
-        await axiosObj.get("/sanctum/csrf-cookie")
-        await  axiosObj.post("/campaign",inputVals).then((data)=>console.log(data.status))
-        toast.success('🦄 Wow so easy!', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-          });
-        }
-        setErrs(errs)
-    }
-    function handleChange(e){
-            setInputVals({...inputVals,[e.target.name]:e.target.value})
-    }
+export default function Campaign() {
+  const [inputVals, setInputVals] = useState({
+    title: '',
+    date: '',
+    lieu: ''
+  });
+  const [errs, setErrs] = useState({
+    title: false,
+    date: false,
+    lieu: false
+  });
+  const [openToast, setOpenToast] = useState(false);
+
+  function handleChange(e) {
+    setInputVals({ ...inputVals, [e.target.name]: e.target.value });
+  }
+
+  const handleCloseToast = () => {
+    setOpenToast(false);
+  };
+
   return (
     <div className='parent p-5'>
-        <div className='p-2 w-75 bg-white rounded rounded-4 shadow'>
-        <h2 className='d-block text-center  '>Create new Campaign</h2>
+      <div className='p-2 w-75 bg-dark rounded rounded-4 shadow'>
+        <h2 className='d-block text-center text-danger'>Create new Campaign</h2>
 
         <form>
-
-  <div className="mb-3 w-75 mx-auto">
-    <label className="form-label  font-bold">Compaign titre :</label>
-    <input type="text" name='title' className="form-control  inputsBorder" onChange={handleChange} />
-    {errs.title && <div  className="form-text text-danger">se champ est obligatoire</div>}
-  </div>
-  <div className="mb-3 w-75 mx-auto">
-    <label className="form-label  font-bold">Compaign lieu :</label>
-    <input type="text" name='lieu' className="form-control  inputsBorder" onChange={handleChange} />
-    {errs.lieu && <div  className="form-text text-danger">se champ est obligatoire</div>}
-  </div>
-  <div className="mb-3 w-75 mx-auto">
-    <label  className="form-label font-bold">Date :</label>
-    <input type="date" name='date' className="form-control  inputsBorder" onChange={handleChange} />
-    {errs.date && <div  className="form-text text-danger">se champ est obligatoire</div>}
-
-  </div>
-  <div className='d-flex justify-content-center '>
-  <button type="button" disabled={isSub} onClick={handelClick} className="btn btn-danger font-bold text-center w-25">{isSub?<p className='loader d-d-inline-block  mx-auto'></p>:"Creer"}</button>
-
-  </div>
-</form>
-
-        </div>
-        <ToastContainer />
+          <div className="mb-3 w-75 mx-auto">
+            <TextField
+              label="Campaign Title"
+              name="title"
+              variant="outlined"
+              fullWidth
+              value={inputVals.title}
+              onChange={handleChange}
+              error={errs.title}
+              helperText={errs.title && 'This field is required'}
+              InputProps={{ className: 'text-danger' }}
+            />
+          </div>
+          <div className="mb-3 w-75 mx-auto" style={{ display: 'flex' }}>
+            <TextField
+              label="Campaign lieu"
+              name="lieu"
+              variant="outlined"
+              fullWidth
+              value={inputVals.lieu}
+              onChange={handleChange}
+              error={errs.lieu}
+              helperText={errs.lieu && 'This field is required'}
+              InputProps={{ className: 'text-danger' }}
+            />
+            <Button
+              type="button"
+              variant="contained"
+              color="secondary"
+              style={{ marginLeft: '10px', marginTop: '8px', backgroundColor: 'red' }}
+            >
+              Add lieu
+            </Button>
+          </div>
+          <div className="mb-3 w-75 mx-auto">
+            <TextField
+              label="Date"
+              name="date"
+              type="date"
+              variant="outlined"
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+              value={inputVals.date}
+              onChange={handleChange}
+              error={errs.date}
+              helperText={errs.date && 'This field is required'}
+              InputProps={{ className: 'text-danger' }}
+            />
+          </div>
+          <div className="d-flex justify-content-center">
+            <Link
+              to={{
+                pathname: '/detailCompagne',
+                state: inputVals
+              }}
+              className="text-decoration-none"
+            >
+              <Button
+                type="button"
+                variant="contained"
+                color="secondary"
+                className={`font-bold text-center w-25 ${Object.values(errs).some(err => err) && 'btn-danger'}`}
+              >
+                {Object.values(errs).some(err => err) ? 'All fields are required' : 'Create'}
+              </Button>
+            </Link>
+          </div>
+        </form>
+      </div>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={openToast}
+        autoHideDuration={6000}
+        onClose={handleCloseToast}
+      >
+        <MuiAlert onClose={handleCloseToast} severity="success" sx={{ width: '100%' }}>
+          New lieu added successfully!
+        </MuiAlert>
+      </Snackbar>
     </div>
-  )
+  );
 }
