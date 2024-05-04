@@ -58,7 +58,7 @@ export default function AddParticipants() {
         }
     
         setIsLoading(true);
-    console.log(formData);
+        console.log(formData);
         // Set a timeout to toggle off the loading indicator after 3 seconds (adjust as needed)
         setTimeout(() => {
             axiosObj.post('/api/participants/add',formData,)
@@ -110,12 +110,12 @@ export default function AddParticipants() {
                         </form>
                     </ModalDialog>
                 </Modal>
-                <Btn variant="contained" className='bg-yellow-400'>
+                <Btn variant="contained" className='bg-blue-400'>
                     Terminer Campagne
                 </Btn>
             </div>
-            <div className='p-4 mt-3  mx-auto bg-gradient rounded rounded-4 shadow' style={{width:"80%"}}>
-                <h2 className='d-block text-center text-danger'>Ajouter un participant</h2>
+            <div className='p-4 mt-3  mx-auto bg-white rounded rounded-4 shadow' style={{width:"80%"}}>
+                <h2 className='d-block text-center text-dark bg-light p-2 rounded'>Ajouter un participant</h2>
 
                 <div className="mb-3 w-75 mx-auto input-container" style={{ marginTop: '20px', marginBottom: '20px' }}>
                     <div className="input-container">
@@ -128,7 +128,7 @@ export default function AddParticipants() {
                             fullWidth
                             className="mb-3"
                             sx={{ width: '48%', marginRight: '4%', marginBottom: '20px' }}
-                            helperText={"se champ est obligatoire"}
+                            helperText={<span style={{ color: 'red' }}>Ce champ est obligatoire</span>}
                         />
 
                         <TextField
@@ -140,7 +140,7 @@ export default function AddParticipants() {
                             fullWidth
                             className="mb-3"
                             sx={{ width: '48%', marginBottom: '20px' }}
-                            helperText={"se champ est obligatoire"}
+                            helperText={<span style={{ color: 'red' }}>Ce champ est obligatoire</span>}
                         />
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
                             <TextField
@@ -151,7 +151,7 @@ export default function AddParticipants() {
                                 variant="outlined"
                                 className="mb-3"
                                 sx={{ width: '40%' }}
-                                helperText={"se champ est obligatoire "}
+                                helperText={<span style={{ color: 'red' }}>Ce champ est obligatoire</span>}
                             />
                         </div>
                         <TextField
@@ -163,7 +163,7 @@ export default function AddParticipants() {
                             fullWidth
                             className="mb-3"
                             sx={{ width: '48%', marginRight: '4%' }}
-                            helperText={"se champ est obligatoire"}
+                            helperText={<span style={{ color: 'red' }}>Ce champ est obligatoire</span>}
                         />
                         <TextField
                             label="Age"
@@ -174,7 +174,7 @@ export default function AddParticipants() {
                             fullWidth
                             className="mb-3"
                             sx={{ width: '48%' }}
-                            helperText={"se champ est obligatoire"}
+                            helperText={<span style={{ color: 'red' }}>Ce champ est obligatoire</span>}
                         />
                         <FormControl component="fieldset" className="mb-3" sx={{ width: '100%' }}>
                             <FormLabel component="legend">Genre</FormLabel>
@@ -187,13 +187,13 @@ export default function AddParticipants() {
                             >
                                 <FormControlLabel
                                     value="homme"
-                                    control={<Radio size="small" sx={{ color: '#ff0000' }} />}
+                                    control={<Radio size="small" sx={{ color: '#0000ff' }} />}
                                     label="Homme"
                                     sx={{ marginRight: '10px' }}
                                 />
                                 <FormControlLabel
                                     value="femme"
-                                    control={<Radio size="small" sx={{ color: '#ff0000' }} />}
+                                    control={<Radio size="small" sx={{ color: '#0000ff' }} />}
                                     label="Femme"
                                 />
                             </RadioGroup>
@@ -209,56 +209,56 @@ export default function AddParticipants() {
                                     row
                                 >
                                     <FormControlLabel
-                                        control={<Radio size="small" sx={{ color: '#ff0000' }} />}
+                                        control={<Radio size="small" sx={{ color: '#0000ff' }} />}
                                         label="A+"
                                         name="bloodType"
                                         value="A+"
                                         onChange={handleChange}
                                     />
                                     <FormControlLabel
-                                        control={<Radio size="small" sx={{ color: '#ff0000' }} />}
+                                        control={<Radio size="small" sx={{ color: '#0000ff' }} />}
                                         label="A-"
                                         name="bloodType"
                                         value="A-"
                                         onChange={handleChange}
                                     />
                                     <FormControlLabel
-                                        control={<Radio size="small" sx={{ color: '#ff0000' }} />}
+                                        control={<Radio size="small" sx={{ color: '#0000ff' }} />}
                                         label="B+"
                                         name="bloodType"
                                         value="B+"
                                         onChange={handleChange}
                                     />
                                     <FormControlLabel
-                                        control={<Radio size="small" sx={{ color: '#ff0000' }} />}
+                                        control={<Radio size="small" sx={{ color: '#0000ff' }} />}
                                         label="B-"
                                         name="bloodType"
                                         value="B-"
                                         onChange={handleChange}
                                     />
                                     <FormControlLabel
-                                        control={<Radio size="small" sx={{ color: '#ff0000' }} />}
+                                        control={<Radio size="small" sx={{ color: '#0000ff' }} />}
                                         label="O-"
                                         name="bloodType"
                                         value="O-"
                                         onChange={handleChange}
                                     />
                                     <FormControlLabel
-                                        control={<Radio size="small" sx={{ color: '#ff0000' }} />}
+                                        control={<Radio size="small" sx={{ color: '#0000ff' }} />}
                                         label="O+"
                                         name="bloodType"
                                         value="O+"
                                         onChange={handleChange}
                                     />
                                     <FormControlLabel
-                                        control={<Radio size="small" sx={{ color: '#ff0000' }} />}
+                                        control={<Radio size="small" sx={{ color: '#0000ff' }} />}
                                         label="AB-"
                                         name="bloodType"
                                         value="AB-"
                                         onChange={handleChange}
                                     />
                                     <FormControlLabel
-                                        control={<Radio size="small" sx={{ color: '#ff0000' }} />}
+                                        control={<Radio size="small" sx={{ color: '#0000ff' }} />}
                                         label="AB+"
                                         name="bloodType"
                                         value="AB+"
@@ -275,13 +275,13 @@ export default function AddParticipants() {
                             variant="outlined"
                             fullWidth
                             className="mb-3"
-                            helperText={"se champ est obligatoire"}
+                            helperText={<span style={{ color: 'red' }}>Ce champ est obligatoire</span>}
                         />
 
                     </div>
                 </div>
 
-                <Btn variant="contained" className='bg-red-700' onClick={handleClick} fullWidth>
+                <Btn variant="contained" className='bg-blue-700' onClick={handleClick} fullWidth>
                     Ajouter
                 </Btn>
                 {isLoading && <div className='loading'> <HashLoader color="#FF0000" /></div> }
