@@ -62,7 +62,7 @@ export default function DetailCompagne() {
 
   return (
     <div className='parent p-5'>
-      <div className='p-2 w-75 bg-dark rounded rounded-4 shadow'>
+      <div className='p-2 w-75  rounded rounded-4 shadow'>
         <h2 className='d-block text-center text-danger'>Detail Compagne</h2>
 
         <div className="mb-3 w-75 mx-auto">

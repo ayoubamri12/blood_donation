@@ -26,7 +26,7 @@ export default function Campaign() {
 
   return (
     <div className='parent p-5'>
-      <div className='p-2 w-75 bg-dark rounded rounded-4 shadow'>
+      <div className='p-2 w-75  rounded rounded-4 shadow'>
         <h2 className='d-block text-center text-danger'>Create new Campaign</h2>
 
         <form>
