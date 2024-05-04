@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\participationController;
+use App\Http\Controllers\PlaceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,11 @@ Route::post("/login",[AuthController::class,"login"]);
 Route::post("/logout",[AuthController::class,"logout"]);
 # --------------------------------------------------------
 Route::get("/campaigns",[CampaignController::class,"index"]);
+Route::post("/campaigns/add",[CampaignController::class,"store"]);
 # ----------------------------------------------------------
 Route::get("/participants",[participationController::class,"index"]);
 Route::post("/participants/add",[participationController::class,"store"]);
+Route::DELETE("/participants/{id}/delete",[participationController::class,"destroy"]);
+# ---------------------------------------------------------------------------------
+Route::get("/places",[PlaceController::class,"index"]);
+Route::post("/places/add",[PlaceController::class,"store"]);

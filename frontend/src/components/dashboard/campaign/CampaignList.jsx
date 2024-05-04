@@ -10,7 +10,10 @@ export default function CampaignList() {
   const [selectedDate, setSelectedDate] = useState('');
 
   useEffect(() => {
-    axiosObj.get('/api/campaigns').then((data) => setCampaigns(data.data.data));
+    axiosObj.get('/api/campaigns').then((data) =>{ 
+      console.log(data.data.data);
+      setCampaigns(data.data.data)
+    });
   }, []);
 
   const filteredCampaigns = campaigns.filter((campaign) => {
@@ -22,7 +25,7 @@ export default function CampaignList() {
   });
 
   const filteredCampaignsByDate = selectedDate
-    ? filteredCampaigns.filter((campaign) => campaign.dateOfcreation.includes(selectedDate))
+    ? filteredCampaigns.filter((campaign) => campaign.created_at.includes(selectedDate))
     : filteredCampaigns;
 
   const handleDateChange = (event) => {
@@ -31,7 +34,7 @@ export default function CampaignList() {
 
   return (
     <div className='w-75 mx-auto mt-4'>
-   
+      
       <div className="mb-3 d-flex justify-content-between">
         <TextField
           label="Search"
@@ -63,33 +66,37 @@ export default function CampaignList() {
           </tr>
         </MDBTableHead>
         <MDBTableBody>
-          {filteredCampaignsByDate.map((campaign) => (
-            <tr key={campaign.id}>
-              <td className='text-center '>
-                <Link className="text-decoration-none font-bold campaing" to={`/listCamp/${campaign.id}/details`}>{campaign.title}</Link>
-              </td>
-              <td className='text-center'>
-                <MDBBadge color='danger' pill>
-                  {campaign.startTime}
-                </MDBBadge>
-              </td>
-              <td className='text-center'>
-                <MDBBadge color='warning' pill>
-                  {campaign.endTime}
-                </MDBBadge>
-              </td>
-              <td className='text-center'>
-                {campaign.placeName}
-              </td>
-              <td className='text-center'>
-                <MDBBadge color='info' pill>
-                  {campaign.dateOfcreation}
-                </MDBBadge>
-              </td>
-            </tr>
-          ))}
+          {filteredCampaignsByDate.map((campaign) =>{
+             const date = new Date(campaign.created_at);
+             const formattedDate = date.toISOString().split('T')[0];
+            return ( 
+              <tr key={campaign.id}>
+                <td className='text-center '>
+                  <Link className="text-decoration-none font-bold campaing text-green-500" to={`/listCamp/${campaign.id}/details`}>{campaign.title}</Link>
+                </td>
+                <td className='text-center'>
+                  <MDBBadge color='danger' pill>
+                    {campaign.startTime}
+                  </MDBBadge>
+                </td>
+                <td className='text-center'>
+                  <MDBBadge color='warning' pill>
+                    {campaign.endTime}
+                  </MDBBadge>
+                </td>
+                <td className='text-center'>
+                  {campaign.placeName}
+                </td>
+                <td className='text-center'>
+                  <MDBBadge color='info' pill>
+                    {formattedDate}
+                  </MDBBadge>
+                </td>
+              </tr>
+          )
+        })}
         </MDBTableBody>
-      </MDBTable>
+        </MDBTable>
     </div>
     
   );

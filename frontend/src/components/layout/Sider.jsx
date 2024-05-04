@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import "../style/sideBar.css"
 import { Icon } from '@mui/material'
+import { Create, SelectAllOutlined } from '@mui/icons-material'
 export default function Sider() {
   return (
 
@@ -27,6 +28,8 @@ export default function Sider() {
         </div> </NavLink></li>
       <li> 
       <NavLink to={"/createCamp"} activeclassname='active' className={"a"}><div className='d-flex align-items-center '><i className="fas fa-solid fa-circle-plus"></i><span className='nav-i'> Creer campagn</span></div> </NavLink></li>
+      <li> 
+      <NavLink to={"/startCampaign"} activeclassame='active' className={"a"}><div className='d-flex align-items-center '><i className="fas fa-solid fa-circle-check"></i><span className='nav-i'> Creer campagn</span></div> </NavLink></li>
       <li> 
       <NavLink to={"/listeCamp"} activeclassname='active' className={"a"}><div className='d-flex align-items-center '><i className="fas fa-solid fa-clipboard-list"></i><span className='nav-i'> les Campaigns</span></div> </NavLink></li>
       <li> 

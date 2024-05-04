@@ -193,35 +193,34 @@ const Details = () => {
   };
 
   return (
-    <div className="w-2/3 mx-auto overflow-hidden">
-        
-      <div id="chart" className="row mb-7 w-75 mx-auto">
+    <div className="w-11/12 mx-auto overflow-hidden">
+    <div id="chart" className="row mb-7 w-4/5 mx-auto">
+      <ReactApexChart
+        options={options}
+        series={series}
+        type="line"
+        height={350}
+      />
+    </div>
+    <div className="row mx-auto">
+      <div className="col-lg-4">
         <ReactApexChart
-          options={options}
-          series={series}
+          options={options1}
+          series={series1}
+          type="pie"
+          width={380}
+        />
+      </div>
+      <div className="col-lg-8">
+        <ReactApexChart
+          options={options2}
+          series={series2}
           type="line"
           height={350}
         />
       </div>
-      <div className="row mx-auto">
-        <div className="col-lg-6">
-          <ReactApexChart
-            options={options1}
-            series={series1}
-            type="pie"
-            width={380}
-          />
-        </div>
-        <div className="col-lg-6">
-          <ReactApexChart
-            options={options2}
-            series={series2}
-            type="line"
-            height={350}
-          />
-        </div>
-      </div>
     </div>
+  </div>
   );
 };
 

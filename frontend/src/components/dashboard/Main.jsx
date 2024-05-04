@@ -9,10 +9,11 @@ export default function Main() {
     }
   })
   return (
-    <div className='cntr'>
+    <div className='w-11/12 mx-auto mt-4'>
+      <div className='cntr'>
      <Link className="navCards text-decoration-none" to={"/createCamp"}>
         <img src="images/blood-donation.png"  className='flex-1' width={130} height={130} alt="" />
-        <h2 className='flex-auto  w-50 font-serif '>
+        <h2 className='flex-auto  w-50 font-serif'>
         Créer une nouvelle campagne
         </h2>
       </Link>
@@ -28,6 +29,17 @@ export default function Main() {
         Créer une nouvelle campagne
         </h2>
       </Link>
+    </div>
+    <div className='cntr'>
+     <Link className="navCards text-decoration-none" to={"/startCampaign"}>
+        <img src="images/user.png"  className='flex-1' width={130} height={130} alt="" />
+        <h2 className='flex-auto  w-50 font-serif'>
+        Commencer une camoagne
+        </h2>
+      </Link>
+    
+    </div>
+
     </div>
   )
 }

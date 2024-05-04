@@ -99,10 +99,6 @@
   overflow: hidden;
   transition: 1s;
 }
-nav.nav:hover{
-  width: 280px;
-  transition: 1s;
-}
 .logo{
   text-align: center;
   display: flex;

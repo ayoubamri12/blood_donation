@@ -24,7 +24,7 @@ if(resp.status===200){
   
        <nav className='row bg-red-600 container-fluid mx-auto justify-between align-items-center p-1'>
       <div className='col-2'>
-        <img src="./images/logo2.jpg" alt="404" className='w-20 h-20  rounded-full'/>
+        <img src="./images/logo2.jpg" alt="404" className='w-16 h-16 rounded-full'/>
       </div>
       <div className='col-1 '>
       <div className="dropdown  d-inline-block w-75 ms-4 ">

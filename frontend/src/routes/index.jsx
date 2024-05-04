@@ -1,12 +1,12 @@
-import Campaign from "@/components/dashboard/Campaign";
-import CampaignList from "@/components/dashboard/CampaignList";
-import StartCampaign from "@/components/dashboard/StartCampaign";
-import Details from "@/components/dashboard/Details";
+import CampaignList from "@/components/dashboard/campaign/CampaignList";
+import StartCampaign from "@/components/dashboard/campaign/StartCampaign";
+import Details from "@/components/dashboard/campaign/Details";
 import Main from "@/components/dashboard/Main";
 import Layout from "@/components/layout/Layout";
 import Login from "@/components/login/Login";
 import { createBrowserRouter } from "react-router-dom";
-import AddParticipants from "@/components/dashboard/AddParticipants";
+import AddParticipants from "@/components/dashboard/campaign/AddParticipants";
+import CampaignDetails from "@/components/dashboard/campaign/CampaignDetails";
 
 const routes= createBrowserRouter([
     {  
@@ -22,7 +22,7 @@ const routes= createBrowserRouter([
           },
           {
             path:"/createCamp",
-            element:<Campaign/>
+            element:<CampaignDetails/>
           },
           {
             path:"/listeCamp",
@@ -33,11 +33,11 @@ const routes= createBrowserRouter([
             element:<Details/>
           },
           {
-            path:"/addParticipants",
+            path:"/campaign/:id/addParticipants",
             element:<AddParticipants/>
           },
           {
-            path:"/detailCompagne",
+            path:"/startCampaign",
             element:<StartCampaign/>
           },
       ],
