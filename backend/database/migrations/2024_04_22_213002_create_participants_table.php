@@ -14,12 +14,14 @@ return new class extends Migration
         Schema::create('participants', function (Blueprint $table) {
             $table->id();            
             $table->string("CIN");
-            $table->string("nom");
-            $table->string("prenom");
-            $table->string("genre");
-            $table->string("tel");
+            $table->string("firstName");
+            $table->string("lastName");
+            $table->string("gender");
+            $table->string("phone");
             $table->string("age");
             $table->string("addresse");
+            $table->string("bloodType");
+            $table->unsignedBigInteger("id_camp");
             $table->timestamps();
         });
     }

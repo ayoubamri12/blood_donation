@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('equipes', function (Blueprint $table) {
+        Schema::create('teammembers', function (Blueprint $table) {
             $table->id();
             $table->string("CIN");
-            $table->string("nom");
-            $table->string("prenom");
+            $table->string("firstname");
+            $table->string("lastname");
             $table->string("age");
             $table->string("role");
-            $table->string("genre");
-            $table->string("tel");
+            $table->string("gender");
+            $table->string("phone");
+            $table->unsignedBigInteger("id_camp");
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('equipes');
+        Schema::dropIfExists('temmembers');
     }
 };
