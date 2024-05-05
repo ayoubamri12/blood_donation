@@ -12,6 +12,7 @@ import { HashLoader } from 'react-spinners';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetch_campgain } from '@/components/redux/actions/actionsCreator';
 import { useNavigate } from 'react-router-dom';
+import "react-toastify/dist/ReactToastify.css";
 export default function CampaignDetails() {
     const [places, setPlaces] = useState([]);
     const [newPlace, setNewPlace] = useState("");
@@ -25,6 +26,11 @@ export default function CampaignDetails() {
             setPlaces(data.data.data)
         });
     }, [isLoading]);
+    useEffect(() => {
+        if (!window.sessionStorage.getItem('user')) {
+          navigate('/');
+        }
+      },[]);
     const [inputVals, setInputVals] = useState({
         title: '',
         lieu: '',
@@ -68,7 +74,7 @@ export default function CampaignDetails() {
             </Button>
             <Modal open={open} onClose={() => setOpen(false)}>
                 <ModalDialog>
-                    <DialogTitle>Éliminer un participant</DialogTitle>
+                    <DialogTitle>Ajouter un lieu</DialogTitle>
                     <DialogContent>Saisissez le lieu de la campagne</DialogContent>
                     <form
                         onSubmit={(event) => {
@@ -79,7 +85,8 @@ export default function CampaignDetails() {
                             <FormControl>
                                 <FormLabel>Libellé du lieu</FormLabel>
                                 <Input autoFocus onChange={(e) => {
-                                    setNewPlace(e.target.value)
+                                    e.target.value=e.target.value.toUpperCase()
+                                    setNewPlace(e.target.value.toUpperCase())
                                 }} />
                                 <small className='text-gray-300 block w-fit ms-2'>Veuillez respecter le format suivant : NOM_Ville</small>
                             </FormControl>
@@ -135,22 +142,8 @@ export default function CampaignDetails() {
                     </div>
                 </form>
             </Container>
-            <Toastify
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                transition:Bounce
-/>
-            {/* Same as */}
+       
             <Toastify />
-          
             {isLoading && <div className='loading'> <HashLoader color="#FF0000" /></div>}
 
         </div>

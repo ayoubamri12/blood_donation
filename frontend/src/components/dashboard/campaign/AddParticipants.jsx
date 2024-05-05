@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button as Btn, TextField, RadioGroup, Radio, FormControlLabel, FormGroup } from '@mui/material';
-import { DeleteForever, Remove } from '@mui/icons-material';
-
+import { DeleteForever, SecurityUpdateWarningOutlined } from '@mui/icons-material';
+import "react-toastify/dist/ReactToastify.css";
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
@@ -17,12 +17,19 @@ import axiosObj from '@/axios/axiosConfig';
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetch_campgain } from '@/components/redux/actions/actionsCreator';
 import { useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
 
 export default function AddParticipants() {
+    useEffect(() => {
+        if (!window.sessionStorage.getItem('user')) {
+            navigate('/');
+          }
+    }, []);
     const [open, setOpen] = useState(false);
-    const {id} = useParams();
+    const { id } = useParams();
     const navigate = useNavigate();
     const dispatcher = useDispatch();
+    const [wanted, setWanted] = useState();
     const [formData, setFormData] = useState({
         CIN: '',
         nom: '',
@@ -32,7 +39,7 @@ export default function AddParticipants() {
         age: '',
         addresse: '',
         bloodType: '',
-        id_camp:id
+        id_camp: id
     });
 
     const handleChange = (e) => {
@@ -42,14 +49,63 @@ export default function AddParticipants() {
         });
     };
     const [isLoading, setIsLoading] = useState(false);
+    const deleteParticipant = (event) => {
+        event.preventDefault();
+        
+      if(!wanted){
+        toast.error('Veuillez remplir le champ CIN.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        });
+      return;
+      }
+      Swal.fire({
+        title: 'Confirmation',
+        text: 'Êtes-vous sûr(e) de vouloir éliminer ce participant ?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Confirmer',
+        cancelButtonText: 'Annuler',
+      }).then((result) => {
+        if (result.isConfirmed) {
+            setIsLoading(true);
+            axiosObj.delete(`/api/participants/${wanted}/delete`).then(() =>{
+                setIsLoading(false)
+                toast.success('🦄 Wow so easy!', {
+                   position: "top-right",
+                   autoClose: 5000,
+                   hideProgressBar: false,
+                   closeOnClick: true,
+                   pauseOnHover: true,
+                   draggable: true,
+                   progress: undefined,
+                   theme: "light",
+                   transition: Bounce,
+               });  
+               });
 
+        }
+      });
+      setOpen(false);
+       
+                     
+       
+       
+    }
     const handleClick = () => {
         // Check if any of the required fields are empty
         const requiredFields = ['nom', 'prenom', 'CIN', 'tel', 'age', 'addresse'];
         const isEmpty = requiredFields.some((field) => !formData[field]);
-    
+
         if (isEmpty) {
-            toast.error('Please fill in all required fields.', {
+            toast.error('Veuillez remplir tous les champs obligatoires.', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -62,14 +118,12 @@ export default function AddParticipants() {
             });
             return;
         }
-    
         setIsLoading(true);
-    console.log(formData);
-        // Set a timeout to toggle off the loading indicator after 3 seconds (adjust as needed)
+        console.log(formData);
         setTimeout(() => {
-            axiosObj.post('/api/participants/add',formData,)
+            axiosObj.post('/api/participants/add', formData)
             setIsLoading(false);
-            toast.success('🦄 Wow so easy!', {
+            toast.success("Le participant a été ajouté avec succès.", {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -80,12 +134,21 @@ export default function AddParticipants() {
                 theme: "light",
                 transition: Bounce,
             });
+            setFormData({
+                CIN: '',
+                nom: '',
+                prenom: '',
+                genre: '',
+                tel: '',
+                age: '',
+                addresse: '',
+                bloodType: '',
+                id_camp: id
+            })
         }, 3000);
     };
-
-
     return (
-        <div className='p-5 mx-auto' style={{width:"90%"}}>
+        <div className='p-5 mx-auto' style={{ width: "90%" }}>
             <div className="d-flex justify-content-between">
                 <Button
                     variant="outlined"
@@ -93,25 +156,32 @@ export default function AddParticipants() {
                     endDecorator={<DeleteForever />}
                     onClick={() => setOpen(true)}
                 >
-                    Discard
+                    Annuler 
                 </Button>
                 <Modal open={open} onClose={() => setOpen(false)}>
                     <ModalDialog>
-                        <DialogTitle>Elimenate Participant</DialogTitle>
-                        <DialogContent>Saisit le CIN du Participant</DialogContent>
+                        <DialogTitle>Supprimer un participant</DialogTitle>
+                        <DialogContent>Saisissez le CIN du participant</DialogContent>
                         <form
                             onSubmit={(event) => {
-                                event.preventDefault();
-                                setOpen(false);
+                                deleteParticipant(event)
                             }}
                         >
                             <Stack>
                                 <FormControl>
                                     <FormLabel>CIN</FormLabel>
-                                    <Input autoFocus required />
+                                    <Input autoFocus onChange={(e)=>{
+                                        e.target.value=e.target.value.toUpperCase()
+                                        setWanted(e.target.value.toUpperCase())
+                                    }}/>
                                 </FormControl>
-                               
-                                <Button className='mt-4' type="submit">Eleminate</Button>
+
+                               <div className='row mt-4 justify-between'>
+                               <Button className='col-4 bg-danger' type="submit">Supprimer</Button>
+                                <Button className='col-4 bg-warning' type="button" onClick={()=>{
+                                    setOpen(false)
+                                }}>Annuler</Button>
+                               </div>
                             </Stack>
                         </form>
                     </ModalDialog>
@@ -120,8 +190,6 @@ export default function AddParticipants() {
                     const now = new Date();
                     let hours = now.getHours();
                     let minutes = now.getMinutes();
-
-                    // Add leading zeros if necessary
                     hours = hours < 10 ? '0' + hours : hours;
                     minutes = minutes < 10 ? '0' + minutes : minutes;
 
@@ -133,12 +201,12 @@ export default function AddParticipants() {
                         setIsLoading(false);
                         navigate(`/createCamp`)
                     });
-                  }}>
+                }}>
                     Terminer Campagne
                 </Btn>
             </div>
-            <div className='p-4 mt-3  mx-auto bg-gradient rounded rounded-4 shadow' style={{width:"80%"}}>
-                <h2 className='d-block text-center text-danger'>Ajouter un participant</h2>
+            <div className='p-4 mt-3  mx-auto bg-gradient rounded rounded-4 shadow' style={{ width: "80%" }}>
+                <h2 className='d-block text-center text-danger font-extrabold '>Ajouter un participant</h2>
 
                 <div className="mb-3 w-75 mx-auto input-container" style={{ marginTop: '20px', marginBottom: '20px' }}>
                     <div className="input-container">
@@ -290,7 +358,7 @@ export default function AddParticipants() {
                                 </RadioGroup>
                             </FormGroup>
                         </FormControl>
-                        <TextField 
+                        <TextField
                             label="Adresse"
                             name="addresse"
                             value={formData.addresse}
@@ -307,10 +375,9 @@ export default function AddParticipants() {
                 <Btn variant="contained" className='bg-red-700' onClick={handleClick} fullWidth>
                     Ajouter
                 </Btn>
-                {isLoading && <div className='loading'> <HashLoader color="#FF0000" /></div> }
+                {isLoading && <div className='loading'> <HashLoader color="#FF0000" /></div>}
             </div>
-        <ToastContainer />
-
+            <ToastContainer />
         </div>
     );
 }

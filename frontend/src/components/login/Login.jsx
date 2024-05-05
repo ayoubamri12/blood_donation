@@ -125,9 +125,10 @@ const Login = () => {
                   autoFocus
                   value={inputs.email}
                   onChange={handleChange}
-                  className="mb-4 border-2 border-red-700"
+                  className="mb-1 border-2 border-red-700"
+                  helpertext={err||""}
                 />
-                <small>{err}</small>
+                <small className='text-red-500'>{err}</small>
                 <TextField
                   variant="outlined"
                   margin="normal"

@@ -1,6 +1,12 @@
+import { useEffect } from 'react';
 import ReactApexChart from 'react-apexcharts';
 
 const Details = () => {
+  useEffect(() => {
+    if (!window.sessionStorage.getItem('user')) {
+      navigate('/');
+    }
+  },[]);
   const series = [
     {
       name: 'Female',
@@ -193,7 +199,7 @@ const Details = () => {
 
   return (
     <div className="w-11/12 mx-auto overflow-hidden">
-    <div id="chart" className="row mb-7 w-4/5 mx-auto">
+    <div id="chart" className="row  w-4/5 rounded-xl shadow-xl mx-auto mt-7 p-7 mb-7">
       <ReactApexChart
         options={options}
         series={series}
@@ -201,8 +207,8 @@ const Details = () => {
         height={350}
       />
     </div>
-    <div className="row mx-auto">
-      <div className="col-lg-4">
+    <div className="row mx-auto justify-between">
+      <div className="col-lg-4 rounded-xl shadow-xl mt-7 p-7 mb-7">
         <ReactApexChart
           options={options1}
           series={series1}
@@ -210,7 +216,7 @@ const Details = () => {
           width={380}
         />
       </div>
-      <div className="col-lg-8">
+      <div className="col-lg-7 border rounded-xl shadow-xl drop-shadow-xl mt-7 p-7 mb-7">
         <ReactApexChart
           options={options2}
           series={series2}

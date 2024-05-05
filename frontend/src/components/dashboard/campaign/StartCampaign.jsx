@@ -5,10 +5,15 @@ import { Button, Typography } from '@mui/joy';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetch_campgain } from '@/components/redux/actions/actionsCreator';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HashLoader } from 'react-spinners';
 
 export default function StartCampaign() {
+  useEffect(() => {
+    if (!window.sessionStorage.getItem('user')) {
+      navigate('/');
+    }
+  },[]);
   const navigate = useNavigate();
   const dispatcher = useDispatch();
   const [isLoading, setIsLoading] = useState(false);

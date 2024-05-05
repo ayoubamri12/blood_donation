@@ -5,7 +5,7 @@ export default function Slider({slides,numberOfSlides}) {
  
     <div className="flex justify-between w-80  mx-auto mt-8">
       {
-        numberOfSlides.map(e=><div className={`${(slides===0 && "bg-red-700")} rounded-full bg-slate-400 w-16 p`}></div>
+        numberOfSlides.map((e,i)=><div className={`${(slides===i ? "bg-red-700":"bg-slate-400")} rounded-full  w-16 p-1`}></div>
         )
       }
     </div>
