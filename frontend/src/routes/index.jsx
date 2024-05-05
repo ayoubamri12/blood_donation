@@ -1,19 +1,15 @@
-import CampaignList from "@/components/dashboard/campaign/CampaignList";
-import StartCampaign from "@/components/dashboard/campaign/StartCampaign";
-import Details from "@/components/dashboard/campaign/Details";
-import Campaign from "@/components/dashboard/Campaign";
-import DetailCompagne from "@/components/dashboard/DetailCompagne";
-import CampaignList from "@/components/dashboard/CampaignList";
-import StartCampaign from "@/components/dashboard/StartCampaign";
-import Details from "@/components/dashboard/Details";
+
 import Main from "@/components/dashboard/Main";
-import Layout from "@/components/layout/Layout";
-import Login from "@/components/login/Login";
-import CreateStaff from "@/components/Forms/CreateStaff";
-import CreateTeam from "@/components/Forms/CreateTeam";
-import { createBrowserRouter } from "react-router-dom";
 import AddParticipants from "@/components/dashboard/campaign/AddParticipants";
 import CampaignDetails from "@/components/dashboard/campaign/CampaignDetails";
+import CampaignList from "@/components/dashboard/campaign/CampaignList";
+import CampaignModifs from "@/components/dashboard/campaign/CampaignModifs";
+import Details from "@/components/dashboard/campaign/Details";
+import StartCampaign from "@/components/dashboard/campaign/StartCampaign";
+import Layout from "@/components/layout/Layout";
+import Login from "@/components/login/Login";
+import { createBrowserRouter } from "react-router-dom";
+
 
 const routes= createBrowserRouter([
     {  
@@ -31,10 +27,7 @@ const routes= createBrowserRouter([
             path:"/createCamp",
             element:<CampaignDetails/>
           },
-          {
-            path:"/detailCompagne",
-            element:<DetailCompagne/>
-          },
+       
           {
             path:"/listeCamp",
             element:<CampaignList/>
@@ -48,17 +41,14 @@ const routes= createBrowserRouter([
             element:<AddParticipants/>
           },
           {
+            path:"/campaign/:id/modify",
+            element:<CampaignModifs/>
+          },
+          {
             path:"/startCampaign",
             element:<StartCampaign/>
           },
-          {
-            path:"/addStaff",
-            element:<CreateStaff/>
-          },
-          {
-            path:"/addTeam",
-            element:<CreateTeam/>
-          },
+         
       ],
   },{
     path:"/",

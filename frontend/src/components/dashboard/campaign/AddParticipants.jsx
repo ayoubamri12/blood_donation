@@ -14,9 +14,15 @@ import { Button } from '@mui/joy';
 import { HashLoader } from 'react-spinners';
 import { Bounce, ToastContainer, toast } from 'react-toastify'
 import axiosObj from '@/axios/axiosConfig';
+import { useNavigate, useParams } from 'react-router-dom';
+import { fetch_campgain } from '@/components/redux/actions/actionsCreator';
+import { useDispatch } from 'react-redux';
 
 export default function AddParticipants() {
     const [open, setOpen] = useState(false);
+    const {id} = useParams();
+    const navigate = useNavigate();
+    const dispatcher = useDispatch();
     const [formData, setFormData] = useState({
         CIN: '',
         nom: '',
@@ -26,7 +32,7 @@ export default function AddParticipants() {
         age: '',
         addresse: '',
         bloodType: '',
-        id_camp:1
+        id_camp:id
     });
 
     const handleChange = (e) => {
@@ -110,7 +116,24 @@ export default function AddParticipants() {
                         </form>
                     </ModalDialog>
                 </Modal>
-                <Btn variant="contained" className='bg-yellow-400'>
+                <Btn variant="contained" className='bg-yellow-400' onClick={() => {
+                    const now = new Date();
+                    let hours = now.getHours();
+                    let minutes = now.getMinutes();
+
+                    // Add leading zeros if necessary
+                    hours = hours < 10 ? '0' + hours : hours;
+                    minutes = minutes < 10 ? '0' + minutes : minutes;
+
+                    const endTime = hours + ':' + minutes;
+                    setIsLoading(true);
+
+                    axiosObj.put(`/api/campaigns/${id}/update`, { endTime }).then((data) => {
+                        dispatcher(fetch_campgain({}));
+                        setIsLoading(false);
+                        navigate(`/createCamp`)
+                    });
+                  }}>
                     Terminer Campagne
                 </Btn>
             </div>

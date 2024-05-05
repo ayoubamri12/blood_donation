@@ -125,20 +125,8 @@ export default function CampaignDetails() {
                                 axiosObj.post(`/api/campaigns/add`, inputVals).then((data) => {
                                     setIsLoading(false)
                                     dispatcher(fetch_campgain(data.data.data))
-                                    toast.success('🦄 Wow so easy!', {
-                                        position: "top-right",
-                                        autoClose: 5000,
-                                        hideProgressBar: false,
-                                        closeOnClick: true,
-                                        pauseOnHover: true,
-                                        draggable: true,
-                                        progress: undefined,
-                                        theme: "light",
-                                        transition: Bounce,
-                                    });
                                     navigate("/startCampaign")
                                 });
-
 
                             }, 2000)
                             setOpen(false);
